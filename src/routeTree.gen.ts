@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RecordatoriosRouteImport } from './routes/recordatorios'
+import { Route as CompromisosIndexRouteImport } from './routes/compromisos.index'
+import { Route as CompromisosNuevoRouteImport } from './routes/compromisos.nuevo'
+import { Route as CompromisosIdIndexRouteImport } from './routes/compromisos.$id.index'
+import { Route as CompromisosIdEditarRouteImport } from './routes/compromisos.$id.editar'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecordatoriosRoute = RecordatoriosRouteImport.update({
+  id: '/recordatorios',
+  path: '/recordatorios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompromisosIndexRoute = CompromisosIndexRouteImport.update({
+  id: '/compromisos/',
+  path: '/compromisos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompromisosNuevoRoute = CompromisosNuevoRouteImport.update({
+  id: '/compromisos/nuevo',
+  path: '/compromisos/nuevo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompromisosIdIndexRoute = CompromisosIdIndexRouteImport.update({
+  id: '/compromisos/$id/',
+  path: '/compromisos/$id/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompromisosIdEditarRoute = CompromisosIdEditarRouteImport.update({
+  id: '/compromisos/$id/editar',
+  path: '/compromisos/$id/editar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/recordatorios': typeof RecordatoriosRoute
+  '/compromisos/nuevo': typeof CompromisosNuevoRoute
+  '/compromisos/': typeof CompromisosIndexRoute
+  '/compromisos/$id/editar': typeof CompromisosIdEditarRoute
+  '/compromisos/$id/': typeof CompromisosIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/recordatorios': typeof RecordatoriosRoute
+  '/compromisos/nuevo': typeof CompromisosNuevoRoute
+  '/compromisos': typeof CompromisosIndexRoute
+  '/compromisos/$id/editar': typeof CompromisosIdEditarRoute
+  '/compromisos/$id': typeof CompromisosIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/recordatorios': typeof RecordatoriosRoute
+  '/compromisos/nuevo': typeof CompromisosNuevoRoute
+  '/compromisos/': typeof CompromisosIndexRoute
+  '/compromisos/$id/editar': typeof CompromisosIdEditarRoute
+  '/compromisos/$id/': typeof CompromisosIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/recordatorios'
+    | '/compromisos/nuevo'
+    | '/compromisos/'
+    | '/compromisos/$id/editar'
+    | '/compromisos/$id/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/recordatorios'
+    | '/compromisos/nuevo'
+    | '/compromisos'
+    | '/compromisos/$id/editar'
+    | '/compromisos/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/recordatorios'
+    | '/compromisos/nuevo'
+    | '/compromisos/'
+    | '/compromisos/$id/editar'
+    | '/compromisos/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RecordatoriosRoute: typeof RecordatoriosRoute
+  CompromisosNuevoRoute: typeof CompromisosNuevoRoute
+  CompromisosIndexRoute: typeof CompromisosIndexRoute
+  CompromisosIdEditarRoute: typeof CompromisosIdEditarRoute
+  CompromisosIdIndexRoute: typeof CompromisosIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recordatorios': {
+      id: '/recordatorios'
+      path: '/recordatorios'
+      fullPath: '/recordatorios'
+      preLoaderRoute: typeof RecordatoriosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compromisos/': {
+      id: '/compromisos/'
+      path: '/compromisos'
+      fullPath: '/compromisos/'
+      preLoaderRoute: typeof CompromisosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compromisos/nuevo': {
+      id: '/compromisos/nuevo'
+      path: '/compromisos/nuevo'
+      fullPath: '/compromisos/nuevo'
+      preLoaderRoute: typeof CompromisosNuevoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compromisos/$id/': {
+      id: '/compromisos/$id/'
+      path: '/compromisos/$id'
+      fullPath: '/compromisos/$id/'
+      preLoaderRoute: typeof CompromisosIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compromisos/$id/editar': {
+      id: '/compromisos/$id/editar'
+      path: '/compromisos/$id/editar'
+      fullPath: '/compromisos/$id/editar'
+      preLoaderRoute: typeof CompromisosIdEditarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RecordatoriosRoute: RecordatoriosRoute,
+  CompromisosNuevoRoute: CompromisosNuevoRoute,
+  CompromisosIndexRoute: CompromisosIndexRoute,
+  CompromisosIdEditarRoute: CompromisosIdEditarRoute,
+  CompromisosIdIndexRoute: CompromisosIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

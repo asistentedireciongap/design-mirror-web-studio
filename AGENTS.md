@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Domain rules (deadline condition, reminder schedule, dashboard counts) live as pure functions in `src/lib/compromisos/plazos.ts` with tests in `src/test/plazos.test.ts` — keeps business rules testable and independent of the UI.
+- All data access goes through the `useCompromisos()` store in `src/lib/compromisos/store.tsx`; pages never touch data directly — so the in-memory demo store can be swapped for a persistent backend without changing screens.
+- The app shell renders inside `<ClientOnly>` in `__root.tsx` because demo data and "today" depend on the browser's local date; SSR would mismatch across time zones.
+- List filters live in the URL search params (validated in `src/lib/compromisos/filtros.ts`) so dashboard cards can deep-link into filtered lists.
